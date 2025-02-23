@@ -25,14 +25,11 @@ jobs:
         run: npm ci
 
       - name: Build website
-        run: |
-          # Create production environment file
-          echo "VITE_BASE_URL=/techvision-website" > .env.production
-          echo "BASE_URL=/techvision-website/" >> .env.production
-          echo "VITE_ASSET_URL=/techvision-website/assets/" >> .env.production
-
-          # Build with base URL configuration
-          npm run build
+        env:
+          VITE_BASE_URL: /techvision-website
+          BASE_URL: /techvision-website/
+          VITE_ASSET_URL: /techvision-website/
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
