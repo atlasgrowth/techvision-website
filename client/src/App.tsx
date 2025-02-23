@@ -13,10 +13,10 @@ const base = import.meta.env.VITE_BASE_URL || "";
 
 function Router() {
   return (
-    <Switch>
-      <Route path={`${base}/`} component={Home} />
-      <Route path={`${base}/about`} component={About} />
-      <Route path={`${base}/contact`} component={Contact} />
+    <Switch base={base}>
+      <Route path="/" component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );
