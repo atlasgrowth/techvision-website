@@ -26,8 +26,10 @@ jobs:
 
       - name: Build website
         run: |
+          # Create the .env.production file with the correct base URL
           echo "VITE_BASE_URL=/techvision-website" > .env.production
-          npm run build
+          # Set the base URL for Vite during build
+          VITE_BASE_URL=/techvision-website npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
