@@ -9,29 +9,29 @@ import About from "./pages/about";
 import Contact from "./pages/contact";
 
 // Use base path from environment variable
-const base = import.meta.env.VITE_BASE_URL || "";
+const base = import.meta.env.BASE_URL || "";
 
 function Router() {
   return (
-    <Switch base={base}>
-      <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/contact" component={Contact} />
-      <Route component={NotFound} />
-    </Switch>
+    <WouterRouter base={base}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
+        <Route component={NotFound} />
+      </Switch>
+    </WouterRouter>
   );
 }
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <WouterRouter base={base}>
-        <div className="relative flex min-h-screen flex-col">
-          <Navbar />
-          <Router />
-        </div>
-        <Toaster />
-      </WouterRouter>
+      <div className="relative flex min-h-screen flex-col">
+        <Navbar />
+        <Router />
+      </div>
+      <Toaster />
     </QueryClientProvider>
   );
 }

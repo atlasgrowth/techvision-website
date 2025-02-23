@@ -14,12 +14,13 @@ const navigation = [
 export function Navbar() {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
+  const base = import.meta.env.BASE_URL || "";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
+          <Link href={base || "/"} className="mr-6 flex items-center space-x-2">
             <span className="font-bold text-xl bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
               TechVision
             </span>
@@ -28,7 +29,7 @@ export function Navbar() {
             {navigation.map((item) => (
               <Link
                 key={item.name}
-                href={item.href}
+                href={`${base}${item.href.replace(/^\//, '')}`}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-primary",
                   location === item.href
@@ -53,7 +54,7 @@ export function Navbar() {
               {navigation.map((item) => (
                 <Link
                   key={item.name}
-                  href={item.href}
+                  href={`${base}${item.href.replace(/^\//, '')}`}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-primary",
                     location === item.href
@@ -72,7 +73,7 @@ export function Navbar() {
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
           </div>
-          <Button className="hidden md:inline-flex">Get Started</Button>
+          <Button href={`${base}#get-started`} className="hidden md:inline-flex">Get Started</Button>
         </div>
       </nav>
     </header>
