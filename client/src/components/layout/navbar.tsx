@@ -14,7 +14,7 @@ const navigation = [
 export function Navbar() {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
-  const base = window.BASE_URL || "";
+  const base = import.meta.env.VITE_BASE_URL || "";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -27,16 +27,15 @@ export function Navbar() {
           </Link>
           <div className="flex gap-6">
             {navigation.map((item) => {
-              const fullPath = `${base}${item.href.replace(/^\//, '')}`;
+              const fullPath = `${base}${item.href}`;
+              const isActive = location === item.href || location === fullPath;
               return (
                 <Link
                   key={item.name}
                   href={fullPath}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-primary",
-                    location === item.href
-                      ? "text-foreground"
-                      : "text-foreground/60"
+                    isActive ? "text-foreground" : "text-foreground/60"
                   )}
                 >
                   {item.name}
@@ -55,16 +54,15 @@ export function Navbar() {
           <SheetContent side="left" className="w-[240px] sm:w-[280px]">
             <div className="flex flex-col gap-4 py-4">
               {navigation.map((item) => {
-                const fullPath = `${base}${item.href.replace(/^\//, '')}`;
+                const fullPath = `${base}${item.href}`;
+                const isActive = location === item.href || location === fullPath;
                 return (
                   <Link
                     key={item.name}
                     href={fullPath}
                     className={cn(
                       "text-sm font-medium transition-colors hover:text-primary",
-                      location === item.href
-                        ? "text-foreground"
-                        : "text-foreground/60"
+                      isActive ? "text-foreground" : "text-foreground/60"
                     )}
                     onClick={() => setOpen(false)}
                   >
@@ -77,8 +75,7 @@ export function Navbar() {
         </Sheet>
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-          </div>
+          <div className="w-full flex-1 md:w-auto md:flex-none"></div>
           <Link href={`${base}#get-started`} className="hidden md:inline-flex">
             <Button>Get Started</Button>
           </Link>
