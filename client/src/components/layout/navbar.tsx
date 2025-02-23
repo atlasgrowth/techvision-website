@@ -14,7 +14,7 @@ const navigation = [
 export function Navbar() {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
-  const base = import.meta.env.BASE_URL || "";
+  const base = window.BASE_URL || "";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -26,20 +26,23 @@ export function Navbar() {
             </span>
           </Link>
           <div className="flex gap-6">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={`${base}${item.href.replace(/^\//, '')}`}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
-                  location === item.href
-                    ? "text-foreground"
-                    : "text-foreground/60"
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              const fullPath = `${base}${item.href.replace(/^\//, '')}`;
+              return (
+                <Link
+                  key={item.name}
+                  href={fullPath}
+                  className={cn(
+                    "text-sm font-medium transition-colors hover:text-primary",
+                    location === item.href
+                      ? "text-foreground"
+                      : "text-foreground/60"
+                  )}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
@@ -51,21 +54,24 @@ export function Navbar() {
           </SheetTrigger>
           <SheetContent side="left" className="w-[240px] sm:w-[280px]">
             <div className="flex flex-col gap-4 py-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={`${base}${item.href.replace(/^\//, '')}`}
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
-                    location === item.href
-                      ? "text-foreground"
-                      : "text-foreground/60"
-                  )}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const fullPath = `${base}${item.href.replace(/^\//, '')}`;
+                return (
+                  <Link
+                    key={item.name}
+                    href={fullPath}
+                    className={cn(
+                      "text-sm font-medium transition-colors hover:text-primary",
+                      location === item.href
+                        ? "text-foreground"
+                        : "text-foreground/60"
+                    )}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </div>
           </SheetContent>
         </Sheet>
@@ -73,7 +79,9 @@ export function Navbar() {
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
           </div>
-          <Button href={`${base}#get-started`} className="hidden md:inline-flex">Get Started</Button>
+          <Link href={`${base}#get-started`} className="hidden md:inline-flex">
+            <Button>Get Started</Button>
+          </Link>
         </div>
       </nav>
     </header>
