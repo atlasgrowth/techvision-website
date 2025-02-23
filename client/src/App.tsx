@@ -9,7 +9,7 @@ import About from "./pages/about";
 import Contact from "./pages/contact";
 
 // Use base path from environment variable
-const base = import.meta.env.BASE_URL || "";
+const base = import.meta.env.VITE_BASE_URL || "";
 
 function Router() {
   return (
