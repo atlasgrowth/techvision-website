@@ -5,10 +5,12 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
+const base = import.meta.env.VITE_BASE_URL || "";
+
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: `${base}/` },
+  { name: "About", href: `${base}/about` },
+  { name: "Contact", href: `${base}/contact` },
 ];
 
 export function Navbar() {
@@ -19,7 +21,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
+          <Link href={`${base}/`} className="mr-6 flex items-center space-x-2">
             <span className="font-bold text-xl bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
               TechVision
             </span>
